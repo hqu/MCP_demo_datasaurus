@@ -1,6 +1,6 @@
-# DatasauRus API and MCP Server
+# DataSaurus API and MCP Server
 
-This project publishes `myDatasauRus.csv` as static JSON files that can be hosted on GitHub Pages.
+This project publishes `myDataSaurus.csv` as static JSON files that can be hosted on GitHub Pages.
 
 GitHub Pages cannot run a live API server, but it can host static API endpoints. For this dataset, the endpoint pattern is:
 
@@ -31,7 +31,7 @@ Available dataset names:
 
 ## Build
 
-Run this whenever `myDatasauRus.csv` changes:
+Run this whenever `myDataSaurus.csv` changes:
 
 ```bash
 node scripts/build-api.mjs

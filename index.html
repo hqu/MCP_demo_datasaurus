@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DatasauRus API</title>
+    <title>DataSaurus MCP Server</title>
     <style>
       :root {
         color-scheme: light;
@@ -30,14 +30,38 @@
         line-height: 1;
       }
 
+      h2 {
+        margin: 40px 0 12px;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+      }
+
       p {
         max-width: 700px;
         line-height: 1.6;
       }
 
+      li {
+        margin: 0 0 10px;
+        line-height: 1.6;
+      }
+
+      ol,
+      ul {
+        max-width: 760px;
+        padding-left: 24px;
+      }
+
       code,
       pre {
         font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      }
+
+      code {
+        overflow-wrap: anywhere;
+      }
+
+      pre code {
+        overflow-wrap: normal;
       }
 
       pre {
@@ -73,33 +97,660 @@
         margin-bottom: 8px;
         color: #1d252b;
       }
+
+      .section-label {
+        margin: 36px 0 8px;
+        color: #0b645f;
+        font-size: 0.84rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .path-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        margin: 24px 0;
+      }
+
+      .path {
+        padding: 20px;
+        border: 1px solid #d6ddd8;
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      .path h3 {
+        margin: 0 0 8px;
+        font-size: 1.15rem;
+      }
+
+      .path p {
+        margin-bottom: 0;
+      }
+
+      .steps {
+        max-width: 820px;
+      }
+
+      .steps li {
+        margin-bottom: 14px;
+        padding-left: 2px;
+      }
+
+      .note {
+        max-width: 760px;
+        color: #4d5a5f;
+      }
+
+      .pdf-embed {
+        margin: 32px 0;
+      }
+
+      .pdf-frame {
+        width: 100%;
+        height: min(78vh, 720px);
+        border: 1px solid #cfd8d4;
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      .client-section {
+        margin: 28px 0 36px;
+        padding-top: 4px;
+        border-top: 1px solid #d6ddd8;
+      }
+
+      .client-section h3 {
+        margin: 22px 0 8px;
+        font-size: 1.28rem;
+      }
+
+      .client-meta {
+        margin: 0 0 16px;
+        color: #4d5a5f;
+      }
+
+      .screenshot {
+        margin: 12px 0 18px;
+        overflow: hidden;
+        border: 1px solid #cfd8d4;
+        border-radius: 8px;
+        background: #ffffff;
+        box-shadow: 0 8px 24px rgba(29, 37, 43, 0.08);
+      }
+
+      .screenshot-bar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 12px;
+        border-bottom: 1px solid #e3e9e5;
+        background: #f1f5f2;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: #d9544d;
+      }
+
+      .dot:nth-child(2) {
+        background: #e5b34d;
+      }
+
+      .dot:nth-child(3) {
+        background: #5aa469;
+      }
+
+      .screenshot-body {
+        display: grid;
+        grid-template-columns: minmax(110px, 0.32fr) 1fr;
+        min-height: 170px;
+      }
+
+      .screenshot-nav {
+        padding: 14px;
+        border-right: 1px solid #e3e9e5;
+        background: #f8faf8;
+      }
+
+      .screenshot-nav span,
+      .screenshot-panel span {
+        display: block;
+        height: 12px;
+        margin-bottom: 10px;
+        border-radius: 999px;
+        background: #dbe4df;
+      }
+
+      .screenshot-nav .active,
+      .screenshot-panel .active {
+        background: #0b645f;
+      }
+
+      .screenshot-panel {
+        padding: 18px;
+      }
+
+      .screenshot-title {
+        margin: 0 0 12px;
+        font-weight: 800;
+      }
+
+      .field {
+        display: block;
+        margin: 12px 0;
+        padding: 11px 12px;
+        border: 1px solid #cad5d0;
+        border-radius: 8px;
+        color: #4d5a5f;
+        background: #ffffff;
+        overflow-wrap: anywhere;
+      }
+
+      .mini-button {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        background: #0b645f;
+        color: #ffffff;
+        font-weight: 800;
+      }
+
+      .prompt-list {
+        max-width: 820px;
+      }
+
+      .callout {
+        margin: 28px 0;
+        padding: 20px;
+        border: 1px solid #c9d8d4;
+        border-left: 4px solid #0b645f;
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      .button {
+        display: inline-block;
+        margin: 8px 0 4px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        background: #0b645f;
+        color: #ffffff;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      @media (max-width: 560px) {
+        .screenshot-body {
+          grid-template-columns: 1fr;
+        }
+
+        .screenshot-nav {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
     <main>
-      <h1>DatasauRus API</h1>
+      <h1>DataSaurus MCP Server</h1>
       <p>
-        Static JSON endpoints generated from <code>myDatasauRus.csv</code>. These files
-        can be hosted directly on GitHub Pages.
+        This project makes the DataSaurus sample data available to AI assistants and
+        web pages. The data comes from <code>myDataSaurus.csv</code>, a small collection
+        of x/y coordinate datasets that look very different when plotted even though
+        their basic statistics can be similar.
+      </p>
+      <p>
+        The MCP server is a read-only bridge between an AI assistant and this dataset.
+        Instead of asking someone to download files or write code, you can connect the
+        server to a compatible assistant and ask plain-English questions such as
+        "Which datasets are available?", "Show me the dino points," or "Summarize the
+        x and y ranges." The assistant asks the MCP server for the data, and the server
+        sends back structured results it can explain or analyze.
+      </p>
+
+      <section class="pdf-embed" aria-labelledby="pdf-title">
+        <h2 id="pdf-title">Agentic Journalism with MCP</h2>
+        <p>
+          Read the project overview below, or open the PDF in a new tab if your browser
+          does not display embedded Dropbox previews.
+        </p>
+        <iframe
+          class="pdf-frame"
+          title="Agentic Journalism with MCP PDF"
+          src="https://www.dropbox.com/scl/fi/ef2s44nmgy85wakgnyo40/Agentic_Journalism_with_MCP.pdf?rlkey=8jdg5dldsvibev9w1crcvarsm&amp;e=1&amp;st=ltlykpx6&amp;dl=0"
+        ></iframe>
+        <p>
+          <a href="https://www.dropbox.com/scl/fi/ef2s44nmgy85wakgnyo40/Agentic_Journalism_with_MCP.pdf?rlkey=8jdg5dldsvibev9w1crcvarsm&amp;e=1&amp;st=ltlykpx6&amp;dl=0">
+            Open the PDF in a new tab
+          </a>
+        </p>
+      </section>
+
+      <div class="callout">
+        <strong>Hosted server already available</strong>
+        <p>
+          If you only want to try the MCP server, use this hosted address:
+          <code>https://yucky-violet-woodpecker.fastmcp.app/mcp</code>
+        </p>
+        <a
+          class="button"
+          href="https://horizon.prefect.io/connect/eyJuYW1lIjoieXVja3ktdmlvbGV0LXdvb2RwZWNrZXIiLCJ0aXRsZSI6Inl1Y2t5LXZpb2xldC13b29kcGVja2VyIiwiZGVzY3JpcHRpb24iOiJFeHBvc2VzIERhdGFzYXVSdXMgZGF0YXNldHMgYW5kIHRoZWlyIGRldGFpbHMuIiwiaWNvbiI6Imljb246RGF0YWJhc2U6JTIzM2I4MmY2IiwicmVtb3RlcyI6W3sidXJsIjoiaHR0cHM6Ly95dWNreS12aW9sZXQtd29vZHBlY2tlci5mYXN0bWNwLmFwcC9tY3AiLCJ0eXBlIjoiaHR0cCJ9XX0/claude-web?orgSlug=prospero"
+        >
+          Open Claude connection page
+        </a>
+      </div>
+
+      <p class="section-label">Start Here</p>
+      <h2>Choose how you want to use the MCP server</h2>
+      <div class="path-grid">
+        <section class="path">
+          <h3>Use the hosted version</h3>
+          <p>
+            Best for a quick demo. The server is already deployed on FastMCP, so you
+            only need to connect it to Claude.
+          </p>
+        </section>
+        <section class="path">
+          <h3>Run it locally</h3>
+          <p>
+            Best if you want to inspect or edit the code. You will clone the GitHub
+            repo, install the requirements, and point your MCP client at the local server.
+          </p>
+        </section>
+        <section class="path">
+          <h3>Deploy your own hosted copy</h3>
+          <p>
+            Best if you want your own FastMCP URL. Connect FastMCP/Horizon to GitHub,
+            select this repo, and deploy it from your account.
+          </p>
+        </section>
+      </div>
+
+      <p class="section-label">Hosted Setup</p>
+      <h2>Option 1: Connect the hosted server to Claude</h2>
+      <ol class="steps">
+        <li>
+          Click <strong>Open Claude connection page</strong> above.
+        </li>
+        <li>
+          Sign in to Claude if asked.
+        </li>
+        <li>
+          Review the connector named <strong>yucky-violet-woodpecker</strong>. This is
+          the hosted DataSaurus MCP server.
+        </li>
+        <li>
+          Add the connector. If Claude asks for the server address, paste
+          <code>https://yucky-violet-woodpecker.fastmcp.app/mcp</code>.
+        </li>
+        <li>
+          Open a new Claude chat. Click the <strong>+</strong> button, choose
+          <strong>Connectors</strong>, and turn on the DataSaurus connector for that chat.
+        </li>
+        <li>
+          Try this prompt: <em>List the available DataSaurus datasets and summarize each one.</em>
+        </li>
+      </ol>
+
+      <p class="section-label">Local Setup</p>
+      <h2>Option 2: Run the server on your computer</h2>
+      <p>
+        Use this path when you want the MCP server running from your own machine.
+        You only need Python and Git installed.
+      </p>
+      <ol class="steps">
+        <li>
+          Clone the GitHub repo:
+          <pre><code>git clone https://github.com/hqu/MCP_demo_datasaurus.git</code></pre>
+        </li>
+        <li>
+          Open the project folder:
+          <pre><code>cd MCP_demo_datasaurus</code></pre>
+        </li>
+        <li>
+          Install the Python requirements:
+          <pre><code>pip install -r requirements.txt</code></pre>
+        </li>
+        <li>
+          Test that FastMCP can see the server:
+          <pre><code>fastmcp inspect server.py:mcp</code></pre>
+        </li>
+        <li>
+          Add the local server to your MCP client. Use this command if your client asks
+          for a command to run:
+          <pre><code>python server.py</code></pre>
+        </li>
+      </ol>
+      <p class="note">
+        In Claude Desktop, add the server in developer settings or your MCP configuration
+        file. Give it a clear name such as <strong>DataSaurus</strong>, set the command
+        to <code>python</code>, and set the argument to the full path of
+        <code>server.py</code> on your computer.
+      </p>
+
+      <p class="section-label">FastMCP Deployment</p>
+      <h2>Option 3: Deploy your own hosted copy with FastMCP</h2>
+      <p>
+        FastMCP runs hosted servers through Prefect Horizon. Horizon can connect to a
+        GitHub repository, build the server, and give you a hosted MCP URL. You will
+        need a GitHub account that can access this repository.
+      </p>
+      <ol class="steps">
+        <li>
+          Sign in to <a href="https://horizon.prefect.io/">Prefect Horizon</a> with
+          your GitHub account.
+        </li>
+        <li>
+          Choose the option to create or deploy an MCP server from GitHub.
+        </li>
+        <li>
+          When GitHub asks for permission, authorize Horizon/FastMCP to access the
+          repository. If you can choose specific repositories, select only this repo:
+          <code>hqu/MCP_demo_datasaurus</code>.
+        </li>
+        <li>
+          Choose the repository:
+          <code>https://github.com/hqu/MCP_demo_datasaurus</code>.
+        </li>
+        <li>
+          Set the FastMCP entrypoint to:
+          <pre><code>server.py:mcp</code></pre>
+        </li>
+        <li>
+          Deploy the server. When the deployment finishes, copy the hosted MCP URL.
+          It should look similar to <code>https://your-server-name.fastmcp.app/mcp</code>.
+        </li>
+        <li>
+          Add that URL to your MCP client as a remote HTTP MCP server.
+        </li>
+      </ol>
+      <p class="note">
+        If your deployment needs GitHub sign-in for users, follow
+        <a href="https://gofastmcp.com/v2/integrations/github">FastMCP's GitHub OAuth
+        guide</a>. For this demo server, the important setup is simply giving Horizon
+        access to the GitHub repo so it can deploy the code.
+      </p>
+
+      <p class="section-label">Client Setup</p>
+      <h2>Configure your MCP client</h2>
+      <p>
+        Choose the instructions for the client you use. Hosted clients use the FastMCP
+        URL. Local coding clients can also run <code>server.py</code> directly from the
+        cloned repo.
+      </p>
+
+      <section class="client-section">
+        <h3>Claude Web</h3>
+        <p class="client-meta">Use this for Claude in a browser at <code>claude.ai</code>.</p>
+        <ol class="steps">
+          <li>
+            Open Claude, then go to <strong>Customize</strong> or <strong>Settings</strong>
+            and choose <strong>Connectors</strong>.
+            <div class="screenshot" aria-label="Screenshot placeholder showing Claude connector settings">
+              <div class="screenshot-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="screenshot-body">
+                <div class="screenshot-nav"><span></span><span class="active"></span><span></span><span></span></div>
+                <div class="screenshot-panel">
+                  <p class="screenshot-title">Claude settings</p>
+                  <span></span><span class="active"></span><span></span>
+                  <div class="field">Connectors</div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            Click <strong>+</strong> or <strong>Add custom connector</strong>.
+            <div class="screenshot" aria-label="Screenshot placeholder showing add custom connector">
+              <div class="screenshot-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="screenshot-body">
+                <div class="screenshot-nav"><span></span><span class="active"></span><span></span><span></span></div>
+                <div class="screenshot-panel">
+                  <p class="screenshot-title">Connectors</p>
+                  <div class="field">Custom connector</div>
+                  <span class="mini-button">Add custom connector</span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            Name it <strong>DataSaurus</strong> and paste the hosted MCP URL:
+            <pre><code>https://yucky-violet-woodpecker.fastmcp.app/mcp</code></pre>
+            <div class="screenshot" aria-label="Screenshot placeholder showing connector URL field">
+              <div class="screenshot-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="screenshot-body">
+                <div class="screenshot-nav"><span></span><span></span><span class="active"></span><span></span></div>
+                <div class="screenshot-panel">
+                  <p class="screenshot-title">Add custom connector</p>
+                  <div class="field">Name: DataSaurus</div>
+                  <div class="field">URL: https://yucky-violet-woodpecker.fastmcp.app/mcp</div>
+                  <span class="mini-button">Add</span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            Start a new chat, click <strong>+</strong>, open <strong>Connectors</strong>,
+            and turn on <strong>DataSaurus</strong> for the conversation.
+            <div class="screenshot" aria-label="Screenshot placeholder showing connector enabled in chat">
+              <div class="screenshot-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="screenshot-body">
+                <div class="screenshot-nav"><span></span><span></span><span></span><span class="active"></span></div>
+                <div class="screenshot-panel">
+                  <p class="screenshot-title">New Claude chat</p>
+                  <div class="field">+  Connectors</div>
+                  <div class="field">DataSaurus: On</div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="client-section">
+        <h3>Claude Desktop</h3>
+        <p class="client-meta">Use this if you prefer Claude's desktop app.</p>
+        <ol class="steps">
+          <li>
+            For the hosted server, use the same connector flow as Claude Web:
+            <strong>Settings</strong> > <strong>Connectors</strong> > <strong>Add connector</strong>.
+          </li>
+          <li>
+            Add the hosted URL:
+            <pre><code>https://yucky-violet-woodpecker.fastmcp.app/mcp</code></pre>
+          </li>
+          <li>
+            For a local copy, open Claude Desktop's developer settings or MCP
+            configuration file. Add a server named <strong>DataSaurus</strong>.
+          </li>
+          <li>
+            Set the command to <code>python</code> and the argument to the full path of
+            <code>server.py</code>. Example:
+            <pre><code>python C:\path\to\MCP_demo_datasaurus\server.py</code></pre>
+          </li>
+          <li>
+            Restart Claude Desktop, open a new chat, and enable the DataSaurus server
+            from the tools or connectors menu.
+          </li>
+        </ol>
+      </section>
+
+      <section class="client-section">
+        <h3>Claude Code</h3>
+        <p class="client-meta">Use this for Anthropic's command-line coding agent.</p>
+        <ol class="steps">
+          <li>
+            From the cloned repo, add the local server to Claude Code:
+            <pre><code>claude mcp add --transport stdio datasaurus -- python server.py</code></pre>
+          </li>
+          <li>
+            If you are using your hosted FastMCP server instead, add it as a remote MCP
+            server:
+            <pre><code>claude mcp add --transport http datasaurus https://yucky-violet-woodpecker.fastmcp.app/mcp</code></pre>
+          </li>
+          <li>
+            In Claude Code, use a plain prompt that tells it which tool data you want:
+            <pre><code>Use the DataSaurus MCP server to list the available datasets and summarize the dino dataset.</code></pre>
+          </li>
+          <li>
+            If the server exposes MCP prompts, type <code>/</code> to browse available
+            slash commands. Claude Code shows MCP prompts in this format:
+            <pre><code>/mcp__datasaurus__prompt_name</code></pre>
+          </li>
+        </ol>
+      </section>
+
+      <section class="client-section">
+        <h3>ChatGPT</h3>
+        <p class="client-meta">
+          Use this for ChatGPT web with developer mode turned on. Developer mode is a
+          beta feature and may require Plus, Pro, Business, Enterprise, or Edu access.
+        </p>
+        <ol class="steps">
+          <li>
+            Open ChatGPT settings, then go to <strong>Connectors</strong> >
+            <strong>Advanced</strong> and turn on <strong>Developer mode</strong>.
+            <div class="screenshot" aria-label="Screenshot placeholder showing ChatGPT developer mode">
+              <div class="screenshot-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="screenshot-body">
+                <div class="screenshot-nav"><span></span><span></span><span class="active"></span><span></span></div>
+                <div class="screenshot-panel">
+                  <p class="screenshot-title">ChatGPT settings</p>
+                  <div class="field">Connectors</div>
+                  <div class="field">Advanced</div>
+                  <div class="field">Developer mode: On</div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            In <strong>Connectors</strong>, choose <strong>Create</strong> or
+            <strong>Add custom connector</strong>.
+            <div class="screenshot" aria-label="Screenshot placeholder showing ChatGPT create connector">
+              <div class="screenshot-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="screenshot-body">
+                <div class="screenshot-nav"><span></span><span class="active"></span><span></span><span></span></div>
+                <div class="screenshot-panel">
+                  <p class="screenshot-title">Apps & Connectors</p>
+                  <div class="field">Enabled apps and connectors</div>
+                  <span class="mini-button">Create</span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            Enter the connector name <strong>DataSaurus</strong>, paste the MCP endpoint,
+            and choose the authentication option requested by your workspace.
+            <pre><code>https://yucky-violet-woodpecker.fastmcp.app/mcp</code></pre>
+            <div class="screenshot" aria-label="Screenshot placeholder showing ChatGPT connector endpoint">
+              <div class="screenshot-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="screenshot-body">
+                <div class="screenshot-nav"><span></span><span></span><span class="active"></span><span></span></div>
+                <div class="screenshot-panel">
+                  <p class="screenshot-title">Create connector</p>
+                  <div class="field">Name: DataSaurus</div>
+                  <div class="field">Endpoint: https://yucky-violet-woodpecker.fastmcp.app/mcp</div>
+                  <span class="mini-button">Create</span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            Open a new chat, click the tools or <strong>+</strong> menu, and select the
+            DataSaurus connector. It may appear with a <strong>Dev</strong> label while
+            you are testing it.
+            <div class="screenshot" aria-label="Screenshot placeholder showing ChatGPT Dev connector selected">
+              <div class="screenshot-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="screenshot-body">
+                <div class="screenshot-nav"><span></span><span></span><span></span><span class="active"></span></div>
+                <div class="screenshot-panel">
+                  <p class="screenshot-title">New ChatGPT chat</p>
+                  <div class="field">+  Tools</div>
+                  <div class="field">DataSaurus  Dev</div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ol>
+        <p class="note">
+          If ChatGPT reports that the MCP server does not match its connector
+          requirements, use Claude or Codex for this demo server, or update the MCP
+          server to include ChatGPT-compatible <code>search</code> and <code>fetch</code>
+          tools before publishing it to a workspace.
+        </p>
+      </section>
+
+      <section class="client-section">
+        <h3>Codex</h3>
+        <p class="client-meta">Use this for OpenAI Codex in the CLI or IDE extension.</p>
+        <ol class="steps">
+          <li>
+            Add the hosted MCP server with the Codex CLI:
+            <pre><code>codex mcp add datasaurus --url https://yucky-violet-woodpecker.fastmcp.app/mcp</code></pre>
+          </li>
+          <li>
+            Verify that Codex saved it:
+            <pre><code>codex mcp list</code></pre>
+          </li>
+          <li>
+            You can also add it manually to <code>~/.codex/config.toml</code>:
+            <pre><code>[mcp_servers.datasaurus]
+url = "https://yucky-violet-woodpecker.fastmcp.app/mcp"</code></pre>
+          </li>
+          <li>
+            Use a prompt that clearly asks Codex to consult the server:
+            <pre><code>Use the DataSaurus MCP server to list the datasets, fetch the dino points, and summarize the x/y ranges.</code></pre>
+          </li>
+        </ol>
+      </section>
+
+      <h2>Good test prompts</h2>
+      <ul class="prompt-list">
+        <li><em>List the available DataSaurus datasets.</em></li>
+        <li><em>Show me the summary for the dino dataset.</em></li>
+        <li><em>Get the x and y points for dino.</em></li>
+        <li><em>Compare the x and y ranges for all datasets.</em></li>
+        <li><em>Use the DataSaurus MCP server and explain what tools are available.</em></li>
+      </ul>
+
+      <h2>Use the JSON API</h2>
+      <p>
+        The same data is published as static JSON, so any browser, script, or notebook
+        can read it without MCP setup. Use the dataset list first, then request a
+        dataset by name.
       </p>
 
       <div class="endpoints">
         <a class="endpoint" href="./api/datasets.json">
-          <strong>List datasets</strong>
-          <code>api/datasets.json</code>
+          <strong>List all datasets</strong>
+          <code>GET ./api/datasets.json</code>
         </a>
         <a class="endpoint" href="./api/datasets/dino.json">
-          <strong>Get x/y values by dataset</strong>
-          <code>api/datasets/dino.json</code>
+          <strong>Get one dataset</strong>
+          <code>GET ./api/datasets/dino.json</code>
         </a>
       </div>
 
-      <p>Example browser request:</p>
+      <p>
+        Dataset names currently include <code>away</code>, <code>bullseye</code>,
+        <code>dino</code>, and <code>star</code>. Each dataset response includes the
+        dataset name, all <code>x</code>/<code>y</code> points, and a small summary.
+      </p>
+
+      <p>Browser example:</p>
       <pre><code>const dataset = "dino";
 const response = await fetch(`./api/datasets/${dataset}.json`);
 const data = await response.json();
 
 console.log(data.points);</code></pre>
+
+      <p>Python example:</p>
+      <pre><code>python get_dino_dataset.py</code></pre>
     </main>
   </body>
 </html>

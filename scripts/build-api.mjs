@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
-const csvPath = path.join(root, "myDatasauRus.csv");
+const csvPath = path.join(root, "myDataSaurus.csv");
 const apiDir = path.join(root, "api");
 const datasetDir = path.join(apiDir, "datasets");
 

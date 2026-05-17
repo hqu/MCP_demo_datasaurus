@@ -8,9 +8,9 @@ from typing import Any
 from fastmcp import FastMCP
 
 
-mcp = FastMCP("DatasauRus")
+mcp = FastMCP("DataSaurus")
 
-DATA_PATH = Path(__file__).with_name("myDatasauRus.csv")
+DATA_PATH = Path(__file__).with_name("myDataSaurus.csv")
 
 
 def _point(row: dict[str, str]) -> dict[str, float]:
@@ -69,7 +69,7 @@ def _resolve_dataset_name(dataset: str) -> str:
 
 @mcp.tool
 def list_datasets() -> list[dict[str, Any]]:
-    """List available DatasauRus dataset names and point counts."""
+    """List available DataSaurus dataset names and point counts."""
     datasets = _load_datasets()
 
     return [
